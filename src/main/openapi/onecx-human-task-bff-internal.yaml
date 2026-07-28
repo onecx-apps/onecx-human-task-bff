@@ -88,7 +88,7 @@ paths:
         404:
           description: Task not found
 
-  /tasks/{id}/accept:
+  /tasks/{id}/:
     post:
       x-onecx:
         permissions:
@@ -112,7 +112,7 @@ paths:
               $ref: '#/components/schemas/AcceptTaskRequest'
       responses:
         200:
-          description: Task acceptd successfully
+          description: Task accepted successfully
         400:
           description: Bad request
           content:
