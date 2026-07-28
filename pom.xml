@@ -120,7 +120,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>src/main/openapi/onecx-human-task-bff-internal.yaml</inputSpec>
+                            <inputSpec>src/main/openapi/openapi-bff.yaml</inputSpec>
                             <apiPackage>gen.org.tkit.onecx.human.task.bff.rs.internal</apiPackage>
                             <modelPackage>gen.org.tkit.onecx.human.task.bff.rs.internal.model</modelPackage>
                             <typeMappings>File=byte[],Object=Map</typeMappings>
