@@ -17,7 +17,7 @@ app:
         enabled: true
         spec:
           kcConfig:
-            defaultClientScopes: [ ocx-ht:all, ocx-pm:read ]
+            defaultClientScopes: [ ocx-ht:all ]
     microservice:
       spec:
         description: onecx-human-task-bff
