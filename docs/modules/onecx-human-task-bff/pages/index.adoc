@@ -1,0 +1,7 @@
+include::onecx-human-task-bff-attributes.adoc[opts=optional]
+
+= OneCX Human Task Backend For Frontend
+
+
+
+include::onecx-human-task-bff-docs.adoc[opts=optional]
