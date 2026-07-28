@@ -1,0 +1,5 @@
+
+:docker-registry: https://github.com/onecx/onecx-human-task-bff/pkgs/container/onecx-human-task-bff
+:helm-registry: https://github.com/onecx/onecx-human-task-bff/pkgs/container/charts%2Fonecx-human-task-bff
+:properties-file: src/main/resources/application.properties
+:helm-file: src/main/helm/values.yaml
