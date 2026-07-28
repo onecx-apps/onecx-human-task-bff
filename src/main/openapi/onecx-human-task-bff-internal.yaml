@@ -88,7 +88,7 @@ paths:
         404:
           description: Task not found
 
-  /tasks/{id}/:
+  /tasks/{id}/accept:
     post:
       x-onecx:
         permissions:
