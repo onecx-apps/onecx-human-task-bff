@@ -26,7 +26,7 @@ import gen.org.tkit.onecx.human.task.client.model.ProblemDetailResponse;
 public interface ExceptionMapper {
 
     default RestResponse<ProblemDetailResponseDTO> constraint(ConstraintViolationException ex) {
-        var dto = exception("CONSTRAINT_VIOLATIONS", ex.getMessage());
+        var dto = exception(ErrorKeys.CONSTRAINT_VIOLATIONS.name(), ex.getMessage());
         dto.setInvalidParams(createErrorValidationResponse(ex.getConstraintViolations()));
         return RestResponse.status(Response.Status.BAD_REQUEST, dto);
     }
@@ -80,5 +80,9 @@ public interface ExceptionMapper {
 
     default String mapPath(Path path) {
         return path.toString();
+    }
+
+    enum ErrorKeys {
+        CONSTRAINT_VIOLATIONS
     }
 }

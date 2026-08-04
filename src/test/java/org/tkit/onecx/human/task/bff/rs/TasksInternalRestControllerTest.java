@@ -19,6 +19,7 @@ import org.mockserver.model.HttpResponse;
 import org.mockserver.model.JsonBody;
 import org.mockserver.model.MediaType;
 import org.tkit.onecx.human.task.bff.rs.controller.TasksInternalRestController;
+import org.tkit.onecx.human.task.bff.rs.mappers.ExceptionMapper;
 
 import gen.org.tkit.onecx.human.task.bff.rs.internal.model.GetTaskResponseDTO;
 import gen.org.tkit.onecx.human.task.bff.rs.internal.model.TaskPageResultDTO;
@@ -107,7 +108,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
         // Assertions
         Assertions.assertNotNull(response);
-        Assertions.assertEquals("CONSTRAINT_VIOLATIONS", response.getErrorCode());
+        Assertions.assertEquals(ExceptionMapper.ErrorKeys.CONSTRAINT_VIOLATIONS.name(), response.getErrorCode());
     }
 
     @Test
@@ -228,7 +229,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
         // Assertions
         Assertions.assertNotNull(response);
-        Assertions.assertEquals("CONSTRAINT_VIOLATIONS", response.getErrorCode());
+        Assertions.assertEquals(ExceptionMapper.ErrorKeys.CONSTRAINT_VIOLATIONS.name(), response.getErrorCode());
     }
 
     @Test
@@ -294,7 +295,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
         // Assertions
         Assertions.assertNotNull(response);
-        Assertions.assertEquals("CONSTRAINT_VIOLATIONS", response.getErrorCode());
+        Assertions.assertEquals(ExceptionMapper.ErrorKeys.CONSTRAINT_VIOLATIONS.name(), response.getErrorCode());
     }
 
     @Test
