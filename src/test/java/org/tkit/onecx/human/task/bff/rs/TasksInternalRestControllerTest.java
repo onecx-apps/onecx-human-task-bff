@@ -21,10 +21,7 @@ import org.mockserver.model.MediaType;
 import org.tkit.onecx.human.task.bff.rs.controller.TasksInternalRestController;
 import org.tkit.onecx.human.task.bff.rs.mappers.ExceptionMapper;
 
-import gen.org.tkit.onecx.human.task.bff.rs.internal.model.GetTaskResponseDTO;
-import gen.org.tkit.onecx.human.task.bff.rs.internal.model.TaskPageResultDTO;
-import gen.org.tkit.onecx.human.task.bff.rs.internal.model.TaskSearchCriteriaDTO;
-import gen.org.tkit.onecx.human.task.bff.rs.internal.model.TaskStatusDTO;
+import gen.org.tkit.onecx.human.task.bff.rs.internal.model.*;
 import gen.org.tkit.onecx.human.task.client.model.*;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -89,8 +86,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
     @Test
     void searchTasksByCriteria_shouldReturn400_whenBodyDoesNotExist() {
-        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
-        problemDetailResponse.setErrorCode("400");
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse().errorCode("400");
 
         // mock the svc
         mockServerClient
@@ -133,6 +129,10 @@ class TasksInternalRestControllerTest extends AbstractTest {
         // Assertions
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.getResource());
+        Assertions.assertEquals(taskId, response.getResource().getId());
+        Assertions.assertEquals("Title", response.getResource().getTitle());
+        Assertions.assertEquals(ProviderTypeDTO.N8_N, response.getResource().getProviderType());
+        Assertions.assertEquals("http://localhost:8080/n8n", response.getResource().getProviderURL());
     }
 
     @Test
@@ -196,12 +196,11 @@ class TasksInternalRestControllerTest extends AbstractTest {
                 .withPriority(100).withId(MOCK_ID)
                 .respond(_ -> HttpResponse.response().withStatusCode(Response.Status.NO_CONTENT.getStatusCode()));
 
-        AcceptTaskRequest acceptTaskRequest = new AcceptTaskRequest();
-        acceptTaskRequest.setModificationCount(0);
+        AcceptTaskRequestDTO acceptTaskRequestDTO = new AcceptTaskRequestDTO().modificationCount(0);
 
         // bff call
         var response = given().when().auth().oauth2(keycloakClient.getAccessToken(ADMIN)).header(APM_HEADER_PARAM, ADMIN)
-                .contentType(APPLICATION_JSON).body(acceptTaskRequest).post(taskId + ACCEPT_ENDPOINT).then()
+                .contentType(APPLICATION_JSON).body(acceptTaskRequestDTO).post(taskId + ACCEPT_ENDPOINT).then()
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
         // Assertions
@@ -210,8 +209,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
     @Test
     void acceptTask_shouldReturn400_whenBodyDoesNotExist() {
-        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
-        problemDetailResponse.setErrorCode("400");
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse().errorCode("400");
 
         // mock the svc
         mockServerClient
@@ -241,12 +239,11 @@ class TasksInternalRestControllerTest extends AbstractTest {
                 .withPriority(100).withId(MOCK_ID)
                 .respond(_ -> HttpResponse.response().withStatusCode(Response.Status.NOT_FOUND.getStatusCode()));
 
-        AcceptTaskRequest acceptTaskRequest = new AcceptTaskRequest();
-        acceptTaskRequest.setModificationCount(0);
+        AcceptTaskRequestDTO acceptTaskRequestDTO = new AcceptTaskRequestDTO().modificationCount(0);
 
         // bff call
         var response = given().when().auth().oauth2(keycloakClient.getAccessToken(ADMIN)).header(APM_HEADER_PARAM, ADMIN)
-                .contentType(APPLICATION_JSON).body(acceptTaskRequest).post(taskId + ACCEPT_ENDPOINT).then()
+                .contentType(APPLICATION_JSON).body(acceptTaskRequestDTO).post(taskId + ACCEPT_ENDPOINT).then()
                 .statusCode(Response.Status.NOT_FOUND.getStatusCode());
 
         // Assertions
@@ -262,12 +259,11 @@ class TasksInternalRestControllerTest extends AbstractTest {
                 .withPriority(100).withId(MOCK_ID)
                 .respond(_ -> HttpResponse.response().withStatusCode(Response.Status.NO_CONTENT.getStatusCode()));
 
-        AcceptTaskRequest acceptTaskRequest = new AcceptTaskRequest();
-        acceptTaskRequest.setModificationCount(0);
+        DeclineTaskRequestDTO declineTaskRequestDTO = new DeclineTaskRequestDTO().modificationCount(0);
 
         // bff call
         var response = given().when().auth().oauth2(keycloakClient.getAccessToken(ADMIN)).header(APM_HEADER_PARAM, ADMIN)
-                .contentType(APPLICATION_JSON).body(acceptTaskRequest).post(taskId + DECLINE_ENDPOINT).then()
+                .contentType(APPLICATION_JSON).body(declineTaskRequestDTO).post(taskId + DECLINE_ENDPOINT).then()
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
         // Assertions
@@ -276,8 +272,7 @@ class TasksInternalRestControllerTest extends AbstractTest {
 
     @Test
     void declineTask_shouldReturn400_whenBodyDoesNotExist() {
-        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse();
-        problemDetailResponse.setErrorCode("400");
+        ProblemDetailResponse problemDetailResponse = new ProblemDetailResponse().errorCode("400");
 
         // mock the svc
         mockServerClient
@@ -307,12 +302,11 @@ class TasksInternalRestControllerTest extends AbstractTest {
                 .withPriority(100).withId(MOCK_ID)
                 .respond(_ -> HttpResponse.response().withStatusCode(Response.Status.NOT_FOUND.getStatusCode()));
 
-        AcceptTaskRequest acceptTaskRequest = new AcceptTaskRequest();
-        acceptTaskRequest.setModificationCount(0);
+        DeclineTaskRequestDTO declineTaskRequestDTO = new DeclineTaskRequestDTO().modificationCount(0);
 
         // bff call
         var response = given().when().auth().oauth2(keycloakClient.getAccessToken(ADMIN)).header(APM_HEADER_PARAM, ADMIN)
-                .contentType(APPLICATION_JSON).body(acceptTaskRequest).post(taskId + DECLINE_ENDPOINT).then()
+                .contentType(APPLICATION_JSON).body(declineTaskRequestDTO).post(taskId + DECLINE_ENDPOINT).then()
                 .statusCode(Response.Status.NOT_FOUND.getStatusCode());
 
         // Assertions
