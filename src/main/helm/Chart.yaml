@@ -7,7 +7,7 @@ description: onecx-human-task-bff
 keywords:
   - bff
 sources:
-  - https://github.com/onecx/onecx-human-task-bff
+  - https://github.com/onecx-apps/onecx-human-task-bff
 maintainers:
   - name: Tkit Developer
     email: tkit_dev@1000kit.org
